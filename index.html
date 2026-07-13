@@ -28,19 +28,17 @@
             width: 100% !important;
         }
 
-        /* 🚶 চলন্ত নোটিশ লাইনের এনিমেশন গতি কমানো হলো */
         @keyframes marquee {
             0% { transform: translate3d(100%, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
         .animate-marquee {
-            animation: marquee 35s linear infinite; /* গতি কমানোর জন্য সময় ২২ থেকে ৩৫ সেকেন্ড করা হলো */
+            animation: marquee 35s linear infinite;
         }
         .animate-marquee:hover {
             animation-play-state: paused;
         }
 
-        /* 🖨️ প্রিমিয়াম প্রিন্ট সিএসএস (শুধু রেজাল্ট কার্ড প্রিন্ট হবে) */
         @media print {
             html, body {
                 background-image: none !important;
@@ -61,12 +59,11 @@
                 display: block !important;
             }
 
-            /* প্রিন্ট কপিতে রয়্যাল ডাবল বর্ডার */
             #resultBox {
                 display: block !important;
                 margin: 20px auto !important;
                 padding: 40px !important;
-                border: 6px double #0f766e !important; /* গাঢ় সবুজ ডাবল বর্ডার */
+                border: 6px double #0f766e !important;
                 border-radius: 4px !important;
                 box-shadow: none !important;
                 width: 100% !important;
@@ -104,7 +101,7 @@
             <i class="fa-solid fa-bullhorn"></i> নোটিশ:
         </div>
         <div class="whitespace-nowrap animate-marquee pl-[10%] inline-block">
-            🎉 সততা প্রি ক্যাডেট স্কুলের বার্ষিক পরীক্ষার ফলাফল প্রকাশিত হয়েছে! | 📜 প্লে থেকে পঞ্চম শ্রেণীর শিক্ষার্থীরা নিচে ক্লাস ও রোল সিলেক্ট করে রিপোর্ট কার্ড দেখতে ও প্রিন্ট করতে পারবে।
+            🎉 সততা প্রি ক্যাডেট স্কুলের বার্ষিক পরীক্ষার ফলাফল প্রকাশিত হয়েছে! | 📜 প্লে থেকে পঞ্চম শ্রেণীর শিক্ষার্থীরা নিচে ক্লাস ও রোল সিলেক্ট করে রেজাল্ট কার্ড দেখতে ও প্রিন্ট করতে পারবে।
         </div>
     </div>
 
@@ -148,7 +145,7 @@
         </div>
 
         <div id="resultBox" class="hidden mt-6 w-full max-w-2xl transition-all duration-300">
-            </div>
+        </div>
         
     </main>
 
@@ -174,8 +171,8 @@
         loading.classList.remove("hidden");
 
         try {
-            // সিলেক্ট করা ক্লাস অনুযায়ী আলাদা ফাইল কল হবে (যেমন: Play.json, Class_1.json)
-            const response = await fetch(`${selectedClass}.json`);
+            // ক্যাশ এড়ানোর জন্য ফাইলের নামের সাথে টাইমস্ট্যাম্প যোগ করা হয়েছে (?t=...)
+            const response = await fetch(`${selectedClass}.json?t=${new Date().getTime()}`);
             
             if (!response.ok) {
                 throw new Error("ফাইল পাওয়া যায়নি");
@@ -192,8 +189,21 @@
                     let subjectRows = "";
                     let totalMarks = 0;
                     
+                    const banglaToEnglishMap = {
+                        '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4',
+                        '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9'
+                    };
+
                     for (const [subject, mark] of Object.entries(student.subjects)) {
-                        const numericMark = parseInt(mark) || 0;
+                        const match = mark.match(/^[\d০-৯]+/);
+                        let numericMark = 0;
+                        
+                        if (match) {
+                            let extractedNumber = match[0];
+                            let englishNumber = extractedNumber.split('').map(char => banglaToEnglishMap[char] || char).join('');
+                            numericMark = parseInt(englishNumber) || 0;
+                        }
+                        
                         totalMarks += numericMark;
                         
                         subjectRows += `
@@ -206,13 +216,19 @@
                         `;
                     }
 
+                    const englishToBanglaMap = {
+                        '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
+                        '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯'
+                    };
+                    const totalMarksBangla = totalMarks.toString().split('').map(char => englishToBanglaMap[char] || char).join('');
+
                     const displayClassName = document.getElementById("classSelect").options[document.getElementById("classSelect").selectedIndex].text;
 
                     resultBox.innerHTML = `
                         <div class="bg-white border-4 border-double border-teal-600 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-2xl bg-gradient-to-b from-white to-teal-50/10">
                             
                             <div class="absolute right-6 top-32 md:right-12 md:top-28 border-4 border-dashed border-emerald-500/30 text-emerald-600/30 font-black text-xl md:text-2xl px-4 py-2 rounded-lg tracking-widest uppercase transform rotate-12 pointer-events-none select-none text-center">
-                                <i class="fa-solid fa-circle-check"></i><br>উত্তীর্ণ<br>PASSED
+                                <i class="fa-solid fa-circle-check"></i><br>উত্তীর্ণ<br>${student.status || 'PASSED'}
                             </div>
 
                             <div class="text-center border-b-2 border-teal-800/20 pb-4 mb-6">
@@ -223,11 +239,10 @@
                                 <p class="text-[11px] text-slate-500 uppercase font-bold tracking-widest mt-0.5">স্থাপিত: ২০০৮ খ্রি. | বার্ষিক পরীক্ষার অগ্রগতি প্রতিবেদন</p>
                             </div>
                             
-                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 mb-6 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                                <div><span class="text-slate-400 font-medium">শিক্ষার্থীর নাম:</span> <strong class="text-slate-800 font-bold text-base text-teal-950">${student.name}</strong></div>
-                                <div><span class="text-slate-400 font-medium">শ্রেণী:</span> <strong class="text-slate-800 font-bold">${displayClassName}</strong></div>
-                                <div><span class="text-slate-400 font-medium">রোল নম্বর:</span> <strong class="text-slate-800 font-bold">${roll}</strong></div>
-                                <div><span class="text-slate-400 font-medium">শাখা / সেকশন:</span> <strong class="text-slate-800 font-bold">${student.section}</strong></div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 mb-6 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-center md:text-left">
+                                <div><span class="text-slate-400 font-medium">শিক্ষার্থীর নাম:</span> <strong class="text-slate-800 font-bold text-base text-teal-950 block md:inline">${student.name}</strong></div>
+                                <div><span class="text-slate-400 font-medium">শ্রেণী:</span> <strong class="text-slate-800 font-bold block md:inline">${displayClassName}</strong></div>
+                                <div><span class="text-slate-400 font-medium">রোল নম্বর:</span> <strong class="text-slate-800 font-bold block md:inline">${roll}</strong></div>
                             </div>
                             
                             <div class="overflow-hidden border border-slate-200 rounded-xl shadow-sm">
@@ -235,14 +250,14 @@
                                     <thead>
                                         <tr class="bg-gradient-to-r from-slate-100 to-slate-50 text-slate-700 border-b border-slate-200">
                                             <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider text-slate-600">বিষয়ের নাম</th>
-                                            <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider text-slate-600 text-center">প্রাপ্ত নম্বর</th>
+                                            <th class="py-3 px-4 font-bold text-xs uppercase tracking-wider text-slate-600 text-center">প্রাপ্ত নম্বর ও গ্রেড</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         ${subjectRows}
                                         <tr class="bg-teal-50/40 font-bold border-t border-teal-200">
                                             <td class="py-3 px-4 text-teal-900 text-sm">সর্বমোট প্রাপ্ত নম্বর (Total Marks):</td>
-                                            <td class="py-3 px-4 text-center text-teal-700 text-base font-black">${totalMarks}</td>
+                                            <td class="py-3 px-4 text-center text-teal-700 text-base font-black">${totalMarksBangla}</td>
                                         </tr>
                                     </tbody>
                                 </table>
