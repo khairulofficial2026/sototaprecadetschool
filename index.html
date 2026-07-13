@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* পুরো ওয়েবসাইটের ফন্ট পরিবর্তন */
         body {
             font-family: 'Hind Siliguri', sans-serif !important;
             margin: 0;
@@ -20,7 +19,6 @@
             box-sizing: border-box;
         }
         
-        /* পিওর সিএসএস দিয়ে বক্সটিকে স্ক্রিনের মাঝখানে আনার গ্যারান্টিড নিয়ম */
         .main-container {
             display: flex !important;
             flex-direction: column !important;
@@ -30,7 +28,6 @@
             width: 100% !important;
         }
 
-        /* চলন্ত লাইনের এনিমেশন */
         @keyframes marquee {
             0% { transform: translate3d(100%, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
@@ -42,34 +39,39 @@
             animation-play-state: paused;
         }
 
-        /* 🖨️ প্রিন্ট করার জন্য ম্যাজিক সিএসএস (শুধু রেজাল্ট প্রিন্ট হবে) */
+        /* 🖨️ ১০০% ওয়ার্কিং প্রিন্ট সিএসএস */
         @media print {
-            /* রেজাল্ট বক্স ছাড়া পেজের বাকি সব হাইড করে দেওয়া হলো */
-            body *, header, .bg-yellow-400, main > div:first-child, footer {
-                display: none !important;
-            }
-            /* রেজাল্ট বক্স এবং তার ভেতরের উপাদানগুলোকে প্রিন্টে দৃশ্যমান রাখা হলো */
-            #resultBox, #resultBox * {
-                display: block !important;
-            }
-            /* প্রিন্ট বাটনের নিজস্ব অংশটি প্রিন্ট কপিতে হাইড থাকবে */
-            #resultBox button {
-                display: none !important;
-            }
-            /* পেজের ব্যাকগ্রাউন্ড সাদা এবং মার্জিন ঠিক করা */
+            /* পেজের ব্যাকগ্রাউন্ড ও কালার ফিক্স */
             body {
                 background-image: none !important;
-                background-color: #fff !important;
+                background-color: #ffffff !important;
+                color: #000000 !important;
             }
-            .main-container {
-                min-height: auto !important;
+            
+            /* রেজাল্ট কার্ড ছাড়া স্ক্রিনের বাকি সব টোটাল গায়েব */
+            header, .bg-yellow-400, #searchFormCard, footer, .print-btn {
+                display: none !important;
+            }
+            
+            /* মেইন কন্টেইনারের মার্জিন-প্যাডিং জিরো করা */
+            .main-container, main {
                 padding: 0 !important;
+                margin: 0 !important;
+                min-height: auto !important;
+                display: block !important;
             }
+
+            /* শুধু রেজাল্ট বক্সটিকে ফুল স্ক্রিন ও দৃশ্যমান করা */
             #resultBox {
-                border: none !important;
+                display: block !important;
+                margin: 0 auto !important;
+                padding: 20px !important;
+                border: 2px solid #cbd5e1 !important; /* প্রিন্টে বর্ডার স্পষ্ট দেখানোর জন্য */
+                border-radius: 12px !important;
                 box-shadow: none !important;
                 width: 100% !important;
-                max-width: 100% !important;
+                max-width: 600px !important;
+                background: #ffffff !important;
             }
         }
     </style>
@@ -97,9 +99,9 @@
         </div>
     </div>
 
-    <main class="main-container px-4 py-8 z-10">
-        <div class="bg-white/95 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-2xl border border-teal-100 w-full max-w-md">
-            
+    <main class="main-container px-4 py-8 z-10 w-full">
+        
+        <div id="searchFormCard" class="bg-white/95 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-2xl border border-teal-100 w-full max-w-md">
             <h2 class="text-xl font-bold text-teal-900 text-center mb-6 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-star text-yellow-400 animate-pulse"></i> ফলাফল অনুসন্ধান করুন
             </h2>
@@ -137,8 +139,9 @@
             </div>
         </div>
 
-        <div id="resultBox" class="hidden mt-8 transition-all duration-300 w-full max-w-md">
+        <div id="resultBox" class="hidden mt-6 w-full max-w-md transition-all duration-300">
             </div>
+        
     </main>
 
     <footer class="bg-slate-800 text-slate-400 text-center py-4 text-xs font-medium border-t border-slate-700 z-10 w-full">
