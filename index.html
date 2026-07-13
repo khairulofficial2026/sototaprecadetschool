@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>সততা প্রি ক্যাডেট স্কুল - রেজাল্ট পোর্টাল</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts থেকে Hind Siliguri এবং Tiro Bangla ফন্ট -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Tiro+Bangla&display=swap" rel="stylesheet">
@@ -31,18 +28,19 @@
             width: 100% !important;
         }
 
+        /* 🚶 চলন্ত নোটিশ লাইনের এনিমেশন গতি কমানো হলো */
         @keyframes marquee {
             0% { transform: translate3d(100%, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
         .animate-marquee {
-            animation: marquee 22s linear infinite;
+            animation: marquee 35s linear infinite; /* গতি কমানোর জন্য সময় ২২ থেকে ৩৫ সেকেন্ড করা হলো */
         }
         .animate-marquee:hover {
             animation-play-state: paused;
         }
 
-        /* 🖨️ সুন্দর প্রিমিয়াম প্রিন্ট সিএসএস */
+        /* 🖨️ প্রিমিয়াম প্রিন্ট সিএসএস (শুধু রেজাল্ট কার্ড প্রিন্ট হবে) */
         @media print {
             html, body {
                 background-image: none !important;
@@ -74,7 +72,6 @@
                 width: 100% !important;
                 max-width: 700px !important;
                 background: #ffffff !important;
-                position: relative;
             }
             
             table {
@@ -85,18 +82,12 @@
                 border-bottom: 1px solid #cbd5e1 !important;
                 padding: 8px 12px !important;
             }
-            th {
-                background-color: #f1f5f9 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between text-slate-800 bg-cover bg-center bg-no-repeat bg-fixed relative" 
       style="background-image: linear-gradient(rgba(238, 242, 255, 0.88), rgba(238, 242, 255, 0.88)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200');">
 
-    <!-- School Banner -->
     <header class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white shadow-lg text-center py-8 relative overflow-hidden">
         <div class="absolute -top-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
         <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
@@ -108,20 +99,17 @@
         </div>
     </header>
 
-    <!-- চলন্ত নোটিশ লাইন -->
     <div class="bg-yellow-400 text-slate-900 font-bold text-xs md:text-sm py-2 overflow-hidden relative w-full flex items-center shadow-inner z-20">
         <div class="bg-rose-600 text-white px-3 py-1 text-xs uppercase tracking-wider rounded-r-md z-30 font-black absolute left-0 shadow flex items-center gap-1">
             <i class="fa-solid fa-bullhorn"></i> নোটিশ:
         </div>
         <div class="whitespace-nowrap animate-marquee pl-[10%] inline-block">
-            🎉 সততা প্রি ক্যাডেট স্কুলের বার্ষিক পরীক্ষার ফলাফল প্রকাশিত হয়েছে! | 📜 প্লে থেকে পঞ্চম শ্রেণীর শিক্ষার্থীরা নিচে ক্লাস ও রোল সিলেক্ট করে রিপোর্ট কার্ড দেখতে ও প্রিন্ট করতে পারবে। | 🎒 আগামী সপ্তাহ থেকে নতুন ক্লাসের বই বিতরণ শুরু হবে। 
+            🎉 সততা প্রি ক্যাডেট স্কুলের বার্ষিক পরীক্ষার ফলাফল প্রকাশিত হয়েছে! | 📜 প্লে থেকে পঞ্চম শ্রেণীর শিক্ষার্থীরা নিচে ক্লাস ও রোল সিলেক্ট করে রিপোর্ট কার্ড দেখতে ও প্রিন্ট করতে পারবে।
         </div>
     </div>
 
-    <!-- Main Content Box -->
     <main class="main-container px-4 py-8 z-10 w-full">
         
-        <!-- ইনপুট ফর্ম কার্ড -->
         <div id="searchFormCard" class="bg-white/95 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-2xl border border-teal-100 w-full max-w-md">
             <h2 class="text-xl font-bold text-teal-900 text-center mb-6 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-star text-yellow-400 animate-pulse"></i> ফলাফল অনুসন্ধান করুন
@@ -134,17 +122,17 @@
                         <option value="Play">Play Group</option>
                         <option value="Nursery">Nursery</option>
                         <option value="KG">KG Class</option>
-                        <option value="Class 1">Class 1</option>
-                        <option value="Class 2">Class 2</option>
-                        <option value="Class 3">Class 3</option>
-                        <option value="Class 4">Class 4</option>
-                        <option value="Class 5">Class 5</option>
+                        <option value="Class_1">Class 1</option>
+                        <option value="Class_2">Class 2</option>
+                        <option value="Class_3">Class 3</option>
+                        <option value="Class_4">Class 4</option>
+                        <option value="Class_5">Class 5</option>
                     </select>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">রোল নম্বর (Roll Number)</label>
-                    <input type="number" id="rollInput" placeholder="রোল নম্বর লিখুন (যেমন: 1, 2, 3)" 
+                    <input type="number" id="rollInput" placeholder="রোল নম্বর লিখুন" 
                         class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold focus:border-teal-500 outline-none transition">
                 </div>
                 
@@ -154,21 +142,17 @@
                 </button>
             </div>
 
-            <!-- Loading Spinner -->
             <div id="loading" class="hidden text-center mt-8">
                 <div class="animate-bounce inline-block text-3xl text-teal-600 mb-2">🎈</div>
                 <p class="text-slate-500 text-xs font-bold tracking-wide">রিপোর্ট কার্ড খোঁজা হচ্ছে...</p>
             </div>
         </div>
 
-        <!-- রেজাল্ট দেখানোর বক্স -->
         <div id="resultBox" class="hidden mt-6 w-full max-w-2xl transition-all duration-300">
-            <!-- JS Data -->
-        </div>
+            </div>
         
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-800 text-slate-400 text-center py-4 text-xs font-medium border-t border-slate-700 z-10 w-full">
         <p>© 2026 সততা প্রি ক্যাডেট স্কুল | সর্বস্বত্ব সংরক্ষিত</p>
     </footer>
@@ -185,13 +169,19 @@
             return;
         }
 
-        const searchKey = `${selectedClass}_${roll}`;
+        const searchKey = roll;
 
         resultBox.classList.add("hidden");
         loading.classList.remove("hidden");
 
         try {
-            const response = await fetch('results.json');
+            // সিলেক্ট করা ক্লাস অনুযায়ী আলাদা ফাইল কল হবে (যেমন: Play.json, Class_1.json)
+            const response = await fetch(`${selectedClass}.json`);
+            
+            if (!response.ok) {
+                throw new Error("ফাইল পাওয়া যায়নি");
+            }
+            
             const data = await response.json();
 
             setTimeout(() => {
@@ -209,24 +199,23 @@
                         
                         subjectRows += `
                             <tr class="border-b border-slate-200 hover:bg-slate-50/50 transition">
-                                <td class="py-3 px-4 text-slate-700 font-semibold text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-book-bookmark text-teal-500 text-xs print:hidden"></i> ${subject}
+                                <td class="py-3 px-4 text-slate-700 font-semibold text-sm">
+                                    ${subject}
                                 </td>
                                 <td class="py-3 px-4 text-center font-bold text-slate-800 text-sm">${mark}</td>
                             </tr>
                         `;
                     }
 
+                    const displayClassName = document.getElementById("classSelect").options[document.getElementById("classSelect").selectedIndex].text;
+
                     resultBox.innerHTML = `
-                        <!-- কার্ড ডিজাইন (Royal Border added) -->
                         <div class="bg-white border-4 border-double border-teal-600 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-2xl bg-gradient-to-b from-white to-teal-50/10">
                             
-                            <!-- অফিসিয়াল জলছাপ স্ট্যাম্প (Passed Stamp) -->
                             <div class="absolute right-6 top-32 md:right-12 md:top-28 border-4 border-dashed border-emerald-500/30 text-emerald-600/30 font-black text-xl md:text-2xl px-4 py-2 rounded-lg tracking-widest uppercase transform rotate-12 pointer-events-none select-none text-center">
                                 <i class="fa-solid fa-circle-check"></i><br>উত্তীর্ণ<br>PASSED
                             </div>
 
-                            <!-- স্কুল হেডার ও মনোগ্রাম লোগো এরিয়া -->
                             <div class="text-center border-b-2 border-teal-800/20 pb-4 mb-6">
                                 <div class="w-16 h-16 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-full mx-auto flex items-center justify-center text-white text-2xl shadow-md mb-2">
                                     <i class="fa-solid fa-school"></i>
@@ -235,15 +224,13 @@
                                 <p class="text-[11px] text-slate-500 uppercase font-bold tracking-widest mt-0.5">স্থাপিত: ২০০৮ খ্রি. | বার্ষিক পরীক্ষার অগ্রগতি প্রতিবেদন</p>
                             </div>
                             
-                            <!-- শিক্ষার্থীর তথ্য গ্রিড -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 mb-6 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                                 <div><span class="text-slate-400 font-medium">শিক্ষার্থীর নাম:</span> <strong class="text-slate-800 font-bold text-base text-teal-950">${student.name}</strong></div>
-                                <div><span class="text-slate-400 font-medium">শ্রেণী:</span> <strong class="text-slate-800 font-bold">${selectedClass}</strong></div>
+                                <div><span class="text-slate-400 font-medium">শ্রেণী:</span> <strong class="text-slate-800 font-bold">${displayClassName}</strong></div>
                                 <div><span class="text-slate-400 font-medium">রোল নম্বর:</span> <strong class="text-slate-800 font-bold">${roll}</strong></div>
                                 <div><span class="text-slate-400 font-medium">শাখা / সেকশন:</span> <strong class="text-slate-800 font-bold">${student.section}</strong></div>
                             </div>
                             
-                            <!-- নাম্বার টেবিল -->
                             <div class="overflow-hidden border border-slate-200 rounded-xl shadow-sm">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
@@ -254,7 +241,6 @@
                                     </thead>
                                     <tbody>
                                         ${subjectRows}
-                                        <!-- মোট নম্বর রো -->
                                         <tr class="bg-teal-50/40 font-bold border-t border-teal-200">
                                             <td class="py-3 px-4 text-teal-900 text-sm">সর্বমোট প্রাপ্ত নম্বর (Total Marks):</td>
                                             <td class="py-3 px-4 text-center text-teal-700 text-base font-black">${totalMarks}</td>
@@ -263,12 +249,10 @@
                                 </table>
                             </div>
 
-                            <!-- শিক্ষকের মন্তব্য -->
                             <div class="mt-6 p-3.5 bg-amber-50/50 border border-amber-200/60 rounded-xl">
-                                <p class="text-xs text-slate-600 leading-relaxed"><i class="fa-solid fa-comment-dots text-amber-500 mr-1 print:hidden"></i> <strong>শ্রেণী শিক্ষকের মন্তব্য:</strong> <span class="italic text-slate-700">"${student.remarks}"</span></p>
+                                <p class="text-xs text-slate-600 leading-relaxed"><strong>শ্রেণী শিক্ষকের মন্তব্য:</strong> <span class="italic text-slate-700">"${student.remarks}"</span></p>
                             </div>
 
-                            <!-- স্বাক্ষর সেকশন (প্রিন্ট কপিতে সুন্দর দেখাবে) -->
                             <div class="mt-14 hidden print:flex justify-between items-center text-center px-4">
                                 <div class="inline-block">
                                     <div class="w-28 border-b border-slate-400 h-5"></div>
@@ -284,9 +268,8 @@
                                 </div>
                             </div>
 
-                            <!-- প্রিমিয়াম প্রিন্ট বাটন -->
-                            <button onclick="window.print()" class="print-btn w-full mt-6 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-teal-600/20 transform active:scale-[0.98]">
-                                <i class="fa-solid fa-print animate-pulse"></i> এই প্রিমিয়াম রিপোর্ট কার্ডটি প্রিন্ট করুন
+                            <button onclick="window.print()" class="print-btn w-full mt-6 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition duration-200 flex items-center justify-center gap-2 shadow-lg">
+                                <i class="fa-solid fa-print"></i> এই প্রিমিয়াম রিপোর্ট কার্ডটি প্রিন্ট করুন
                             </button>
                         </div>
                     `;
@@ -295,7 +278,7 @@
                         <div class="bg-amber-50 border-2 border-amber-200 rounded-xl p-5 text-center shadow-md max-w-md mx-auto">
                             <span class="text-3xl block mb-2">🤔</span>
                             <h3 class="text-sm font-bold text-amber-800">ফলাফল পাওয়া যায়নি!</h3>
-                            <p class="text-xs text-slate-500 mt-1">এই রোল বা শ্রেণীর ফলাফল এখনো আপলোড করা হয়নি।</p>
+                            <p class="text-xs text-slate-500 mt-1">এই ক্লাসে এই রোলের ফলাফল এখনো আপলোড করা হয়নি।</p>
                         </div>
                     `;
                 }
@@ -305,8 +288,14 @@
 
         } catch (error) {
             loading.classList.add("hidden");
-            alert("ডাটাবেজ ফাইল লোড করা যায়নি।");
-            console.error(error);
+            resultBox.innerHTML = `
+                <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-5 text-center shadow-md max-w-md mx-auto">
+                    <span class="text-3xl block mb-2">❌</span>
+                    <h3 class="text-sm font-bold text-rose-800">ফাইল লোড করা যায়নি!</h3>
+                    <p class="text-xs text-slate-500 mt-1">গিটহাবে এই শ্রেণীর জন্য সঠিক নামের .json ফাইলটি তৈরি করা আছে কিনা নিশ্চিত করুন।</p>
+                </div>
+            `;
+            resultBox.classList.remove("hidden");
         }
     }
     </script>
