@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>সততা প্রি ক্যাডেট স্কুল - রেজাল্ট পোর্টাল</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts থেকে Hind Siliguri ফন্ট যুক্ত করা হলো -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Custom Styles for Font, Alignment and Animation -->
     <style>
         /* পুরো ওয়েবসাইটের ফন্ট পরিবর্তন */
         body {
@@ -30,7 +26,7 @@
             flex-direction: column !important;
             justify-content: center !important;
             align-items: center !important;
-            min-height: 70vh !important; /* স্ক্রিনের ৭০% উচ্চতা জুড়ে সেন্টার করবে */
+            min-height: 70vh !important;
             width: 100% !important;
         }
 
@@ -45,12 +41,42 @@
         .animate-marquee:hover {
             animation-play-state: paused;
         }
+
+        /* 🖨️ প্রিন্ট করার জন্য ম্যাজিক সিএসএস (শুধু রেজাল্ট প্রিন্ট হবে) */
+        @media print {
+            /* রেজাল্ট বক্স ছাড়া পেজের বাকি সব হাইড করে দেওয়া হলো */
+            body *, header, .bg-yellow-400, main > div:first-child, footer {
+                display: none !important;
+            }
+            /* রেজাল্ট বক্স এবং তার ভেতরের উপাদানগুলোকে প্রিন্টে দৃশ্যমান রাখা হলো */
+            #resultBox, #resultBox * {
+                display: block !important;
+            }
+            /* প্রিন্ট বাটনের নিজস্ব অংশটি প্রিন্ট কপিতে হাইড থাকবে */
+            #resultBox button {
+                display: none !important;
+            }
+            /* পেজের ব্যাকগ্রাউন্ড সাদা এবং মার্জিন ঠিক করা */
+            body {
+                background-image: none !important;
+                background-color: #fff !important;
+            }
+            .main-container {
+                min-height: auto !important;
+                padding: 0 !important;
+            }
+            #resultBox {
+                border: none !important;
+                box-shadow: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between text-slate-800 bg-cover bg-center bg-no-repeat bg-fixed relative" 
       style="background-image: linear-gradient(rgba(238, 242, 255, 0.88), rgba(238, 242, 255, 0.88)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200');">
 
-    <!-- School Banner -->
     <header class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white shadow-lg text-center py-8 relative overflow-hidden">
         <div class="absolute -top-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
         <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
@@ -62,7 +88,6 @@
         </div>
     </header>
 
-    <!-- চলন্ত নোটিশ লাইন (Scrolling Notice) -->
     <div class="bg-yellow-400 text-slate-900 font-bold text-xs md:text-sm py-2 overflow-hidden relative w-full flex items-center shadow-inner z-20">
         <div class="bg-rose-600 text-white px-3 py-1 text-xs uppercase tracking-wider rounded-r-md z-30 font-black absolute left-0 shadow flex items-center gap-1">
             <i class="fa-solid fa-bullhorn"></i> নোটিশ:
@@ -72,7 +97,6 @@
         </div>
     </div>
 
-    <!-- Main Content Box (এখানে কাস্টম .main-container ক্লাস দেওয়া হয়েছে) -->
     <main class="main-container px-4 py-8 z-10">
         <div class="bg-white/95 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-2xl border border-teal-100 w-full max-w-md">
             
@@ -80,7 +104,6 @@
                 <i class="fa-solid fa-star text-yellow-400 animate-pulse"></i> ফলাফল অনুসন্ধান করুন
             </h2>
             
-            <!-- Inputs -->
             <div class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">শ্রেণী নির্বাচন করুন (Select Class)</label>
@@ -108,25 +131,20 @@
                 </button>
             </div>
 
-            <!-- Loading Spinner -->
             <div id="loading" class="hidden text-center mt-8">
                 <div class="animate-bounce inline-block text-3xl text-teal-600 mb-2">🎈</div>
                 <p class="text-slate-500 text-xs font-bold tracking-wide">রিপোর্ট কার্ড খোঁজা হচ্ছে...</p>
             </div>
-
-            <!-- Result Display Box -->
-            <div id="resultBox" class="hidden mt-8 transition-all duration-300">
-                <!-- JavaScript data goes here -->
-            </div>
         </div>
+
+        <div id="resultBox" class="hidden mt-8 transition-all duration-300 w-full max-w-md">
+            </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-800 text-slate-400 text-center py-4 text-xs font-medium border-t border-slate-700 z-10 w-full">
         <p>© 2026 সততা প্রি ক্যাডেট স্কুল | সর্বস্বত্ব সংরক্ষিত</p>
     </footer>
 
-    <!-- Link to JS -->
     <script src="script.js"></script>
 </body>
 </html>
