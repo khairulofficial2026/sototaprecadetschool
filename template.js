@@ -1,4 +1,3 @@
-// 📄 মার্কশিটের কম্প্যাক্ট ডিজাইন লেআউট (HTML Template)
 function generateResultCardHTML(student, roll, displayClassName, subjectRows, totalMarksBangla, grandMaxMarks, grandTotalObtained, totalPercentage, finalGrade, schoolConfig) {
     return `
         <div class="bg-white border-4 border-double border-teal-600 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-2xl">
